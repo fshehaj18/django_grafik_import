@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block body %}
+        <div class="text-center" style="padding:40px">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                <label>
+                    <select name="key">
+                        
+                        <option value="" disabled selected>Choose dataset</option>
+
+                        {% for key in keys %}
+                        <option value="{{ key }}">{{ key }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                </div>
+
+                <div class="" style="margin-top:120px; margin-left: 180x;">
+                    <input class="btn btn-info" type="submit" value="View processed data" style="color:white">
+                </div>
+            </form>
+
+            <div class="center">
+                <canvas id="myChart" width="1200" height="600"></canvas>
+            </div>
+
+        </div>
+{% endblock %}
