@@ -24,20 +24,21 @@ def process_file(request, filename):
             data_key = request.POST.get('key')
             data_sections = {}
             max_labels = 0 
+
             if data_key:
                 data_points = file[data_key]
-                for i, section in enumerate(data_points):
+                for i,section in enumerate(data_points):
                     data_of_section = list(data_points.get(section))[::120]
                     if len(data_of_section) > max_labels:
                         max_labels = len(data_of_section)
                     data_sections[section] = data_of_section
+                
             
             context = {
                 "keys":data,
                 "data_sections": data_sections,
-                "range": range(max_labels)
+                "range": range(max_labels),
             }
 
-            return render(request, "grafik/processed_file.html", context)
+            return render(request, "grafik\processed_file.html", context)
     raise Http404()
-    

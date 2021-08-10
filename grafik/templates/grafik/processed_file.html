@@ -1,29 +1,62 @@
-{% extends 'base.html' %}
+{% include 'base.html' %}
 {% block body %}
-        <div class="text-center" style="padding:40px">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group">
-                <label>
-                    <select name="key">
-                        
-                        <option value="" disabled selected>Choose dataset</option>
+    <div class="text-center" style="padding:40px">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+            <label>
+                <select name="key">
+                    
+                    <option value="" disabled selected>Choose dataset</option>
 
-                        {% for key in keys %}
-                        <option value="{{ key }}">{{ key }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-                </div>
-
-                <div class="" style="margin-top:120px; margin-left: 180x;">
-                    <input class="btn btn-info" type="submit" value="View processed data" style="color:white">
-                </div>
-            </form>
-
-            <div class="center">
-                <canvas id="myChart" width="1200" height="600"></canvas>
+                    {% for key in keys %}
+                    <option value="{{ key }}">{{ key }}</option>
+                    {% endfor %}
+                </select>
+            </label>
             </div>
 
+            <div class="text-center" style="margin-top:120px; margin-left: 180x;">
+                <input class="btn btn-info" type="submit" value="View processed data" style="color:white">
+            </div>
+        </form>
+
+        <div class="center">
+            <canvas id="myChart" width="1200" height="600"></canvas>
         </div>
+    </div> 
+
+{%if data_sections %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                var ctx = document.getElementById('myChart').getContext('2d');
+
+                    var myChart = new Chart(ctx,
+                    {
+                        type: 'bar',
+                        data:{
+                            labels:[
+                                {% for i in range %}
+                                
+                                {{ i }},
+
+                                {% endfor %}
+                            ],
+                            datasets: [{
+                                label: "# random number",
+                                data:[1000,2000,300,40123,44411,222344,566778,11111],
+                                backgroundColor: "#79AEC8",
+                                borderColor: "#417690"
+                            }]
+                        }
+                    }
+            )
+            })
+           
+        </script>
+{%endif%}
+
+
+
+
 {% endblock %}
