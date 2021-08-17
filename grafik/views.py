@@ -5,7 +5,6 @@ from django.shortcuts import render
 from .forms import UploadFileForm
 from .functions.file_upload import handle_uploaded_file
 
-
 def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
@@ -32,13 +31,13 @@ def process_file(request, filename):
                     if len(data_of_section) > max_labels:
                         max_labels = len(data_of_section)
                     data_sections[section] = data_of_section
-                
             
+
             context = {
                 "keys":data,
                 "data_sections": data_sections,
                 "range": range(max_labels),
             }
-
             return render(request, "grafik\processed_file.html", context)
+
     raise Http404()

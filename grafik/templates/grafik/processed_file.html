@@ -24,39 +24,62 @@
         <div class="center">
             <canvas id="myChart" width="1200" height="600"></canvas>
         </div>
+        <div class="text-center" style="margin-top:20px; margin-left: 180x;">
+                <input class="btn btn-info" id="btnDownload" onclick="downloadImage()" value="Download" style="color:white">
+            </div>
     </div> 
 
-{%if data_sections %}
+    {% if data_sections %}
         <script>
             document.addEventListener('DOMContentLoaded', function(){
                 var ctx = document.getElementById('myChart').getContext('2d');
-
+                const ngjyrat = ["#79AEC8", "#36ad55", "#e265b0","#a06c40","#f5f242","#9932CC", "#36ad55", "#e265b0"];
                     var myChart = new Chart(ctx,
                     {
                         type: 'bar',
                         data:{
                             labels:[
-                                {% for i in range %}
-                                
-                                {{ i }},
+                           {% for i in range %}
 
-                                {% endfor %}
+                                        {{i}},
+                                        {% endfor %}
                             ],
-                            datasets: [{
-                                label: "# random number",
-                                data:[1000,2000,300,40123,44411,222344,566778,11111],
-                                backgroundColor: "#79AEC8",
+                            datasets: [
+                           {% for key,value in data_sections.items %} {
+
+
+                                data:[
+
+
+                        {% for v in value %}
+                                        {{v}},
+                                        {% endfor %}
+
+
+                                ],
+                                backgroundColor:ngjyrat[{{forloop.counter0}}],
                                 borderColor: "#417690"
-                            }]
-                        }
+                                //index += 1;
+
+                            },{% endfor %}]
+
+                        },
+ options: {
+        legend: {
+          display: false
+        }
+      }
+
+
                     }
+
             )
+
             })
-           
+
+
         </script>
-{%endif%}
 
-
-
+{% endif %}
 
 {% endblock %}
